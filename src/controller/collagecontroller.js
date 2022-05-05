@@ -27,6 +27,9 @@ const createcollage = async function (req, res) {
 const getcollagedetail = async function (req,res){
     try{
         const collagename = req.query
+        if(Object.keys(collagename).length == 0){
+            return res.status(400).send({status:false,Error:"empty request"})
+        }
         let collage = Object.values(collagename).toLocaleString().trim()
         console.log(collage)
         const findcollage = await collageModel.findOne({name:collage}).select({name:1,fullName:1,logoLink:1,_id:0})
