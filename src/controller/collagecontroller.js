@@ -30,13 +30,13 @@ const getcollagedetail = async function (req,res){
         let collage = Object.values(collagename).toLocaleString().trim()
         console.log(collage)
         const findcollage = await collageModel.findOne({name:collage}).select({name:1,fullName:1,logoLink:1,_id:0})
-        const findcollage2 = await collageModel.findOne({name:collage})
-        console.log(findcollage2._id)
+        const findcollageid = await collageModel.findOne({name:collage})
+        console.log(findcollageid._id)
         if(!findcollage){
             return res.status(400).send({status:false,Error:"collage not found"})
         }
 
-        const result = await internModel.find({collageId:findcollage2._id}).select({_id:1,name:1,email:1,mobile:1,_id:0})
+        const result = await internModel.find({collageId:findcollageid._id}).select({_id:1,name:1,email:1,mobile:1,_id:0})
         res.status(200).send({status:true,data:findcollage,interns:result})
 
     }catch(err){
