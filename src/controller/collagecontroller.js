@@ -37,7 +37,7 @@ const getcollegedetail = async function (req, res) {
         const findcollegeid = await collegeModel.findOne({ name: college })
         console.log(findcollege)
         if (!findcollege) {
-            return res.status(400).send({ status: false, Error: "collage not found" })
+            return res.status(400).send({ status: false, Error: "college not found" })
         }
 
         const result = await internModel.find({ collegeId: findcollegeid._id }).select({ _id: 1, name: 1, email: 1, mobile: 1 })
