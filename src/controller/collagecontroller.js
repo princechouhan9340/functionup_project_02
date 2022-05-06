@@ -32,7 +32,7 @@ const getcollagedetail = async function (req,res){
         }
         let collage = Object.values(collagename).toLocaleString().trim()
         console.log(collage)
-        const findcollage = await collageModel.findOne({name:collage}).select({name:1,fullName:1,logoLink:1,_id:0})
+        const findcollage = await collageModel.findOne({name:collage}).select({name:1,fullName:1,logoLink:1})
         const findcollageid = await collageModel.findOne({name:collage})
         console.log(findcollage)
         if(!findcollage){
