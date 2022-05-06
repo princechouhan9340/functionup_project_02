@@ -16,7 +16,8 @@ const collageschema = mongoose.Schema({
     },
     logoLink: {
         type:String,
-        default:"https://functionup.s3.ap-south-1.amazonaws.com/colleges/iith.png"    
+        required:true,
+        trim:true   
     }, 
     isDeleted: {
         type:Boolean,
