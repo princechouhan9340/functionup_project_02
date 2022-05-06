@@ -1,5 +1,5 @@
 const internmodel = require("../model/internModel")
-const collageModel = require("../model/collageModel")
+const collegeModel = require("../model/collegeModel")
 const validator = require("email-validator");
 const { default: mongoose } = require("mongoose");
 // validator.validate("test@email.com");
@@ -18,11 +18,11 @@ const createintern = async function (req, res) {
             return res.status(400).send({ status: false, Error: "Input is empty, provide data" })
         }
 
-        if (!data.name || !data.email || !data.mobile || !data.collageId) {
+        if (!data.name || !data.email || !data.mobile || !data.collegeName) {
             return res.status(400).send({ status: false, Error: "Please enter mandatory field" })
         }
 
-        if (typeof (data.name) != "string" || typeof (data.mobile) != "string") {
+        if (typeof (data.name) != "string" || typeof (data.mobile) != "string" || typeof (data.collegeName) != "string") {
             return res.status(400).send({ status: false, Error: "Invalid input" })
         }
 
@@ -44,15 +44,14 @@ const createintern = async function (req, res) {
             return res.status(400).send({ status: false, Error: "mobile alrady registered" })
         }
         
-        let isValid = mongoose.Types.ObjectId.isValid(data.collageId)
-        if (!isValid) {
-            return res.status(400).send({ status: false, Error: "Invalid ObjectId" })
+        let collegeid = await collegeModel.findOne({ name: data.collegeName })
+        if (!collegeid) {
+            return res.status(400).send({ status: false, Error: "college not found" })
         }
+        delete  data.collegeName  
+        data.collegeId= collegeid._id
 
-        let collageid = await collageModel.findOne({ _id: data.collageId })
-        if (!collageid) {
-            return res.status(400).send({ status: false, Error: "collage not found" })
-        }
+
 
         let result = await internmodel.create(data)
         res.status(201).send({ status: false, data: result })
