@@ -8,11 +8,11 @@ const createcollage = async function (req, res) {
             return res.status(400).send({ status: false, Error: "input is empty, please enter data" })
         }
 
-        if (!data.name || !data.fullName) {
+        if (!data.name || !data.fullName || !data.logoLink) {
             return res.status(400).send({ status: false, Error: "please enter mandatory field" })
         }
 
-        if (typeof (data.name) != "string" || typeof (data.fullName) != "string") {
+        if (typeof (data.name) != "string" || typeof (data.fullName) != "string" || typeof(data.logoLink) != "string") {
             return res.status(400).send({ status: false, Error: "invalid input" })
         }
 
@@ -34,7 +34,7 @@ const getcollagedetail = async function (req,res){
         console.log(collage)
         const findcollage = await collageModel.findOne({name:collage}).select({name:1,fullName:1,logoLink:1,_id:0})
         const findcollageid = await collageModel.findOne({name:collage})
-        console.log(findcollageid._id)
+        console.log(findcollage)
         if(!findcollage){
             return res.status(400).send({status:false,Error:"collage not found"})
         }
