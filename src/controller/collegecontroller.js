@@ -16,6 +16,11 @@ const createcollege = async function (req, res) {
         if (typeof (data.name) != "string" || typeof (data.fullName) != "string" || typeof (data.logoLink) != "string") {
             return res.status(400).send({ status: false, Error: "invalid input" })
         }
+        
+        const findcollege = await collegeModel.findOne({name:data.name})
+        if(findcollege){
+            return res.status(400).send({status:false,Error:"collage alrady created"})
+        }
 
         const result = await collegeModel.create(data)
         res.status(201).send({ status: true, data: result })
