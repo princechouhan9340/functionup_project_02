@@ -20,7 +20,7 @@ const internschema = new mongoose.Schema({
         unique:true,
         trim:true 
     },
-    collageId: {
+    collegeId: {
         type:mongoose.Schema.Types.ObjectId,
         ref: "Collage",
         required:true,
