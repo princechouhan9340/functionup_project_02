@@ -3,7 +3,9 @@ const mongoose = require('mongoose')
 const internschema = new mongoose.Schema({
     name: {
         type:String,
-        required:true
+        required:true,
+        lowercase:true,
+        trim:true
      },
     email: { 
         type:String,
